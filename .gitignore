@@ -1,0 +1,10 @@
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+/.vs/gRPC_ModManager/v17
+/.vs/ProjectEvaluation
+/.vs/gRPC_ModManager/FileContentIndex
+/.vs/gRPC_ModManager/DesignTimeBuild
+/.vs/gRPC_ModManager/config
