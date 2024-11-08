@@ -8,9 +8,9 @@ namespace gRPC_ModManager.Server.Services
 {
     public class DirectorySyncService : IDirectorySyncService
     {
-        private readonly string serverDirectoryPath = "server_directory";
+        private readonly string serverDirectoryPath = "E:\\C# Projekte";
 
-        public async Task<InitialDirectoryDataResponse> GetInitialDirectoryDataAsync(EmptyRequest request, ServerCallContext context)
+        public async Task<InitialDirectoryDataResponse> GetInitialDirectoryDataAsync(EmptyRequest request)
         {
             var response = new InitialDirectoryDataResponse();
 
@@ -20,7 +20,7 @@ namespace gRPC_ModManager.Server.Services
                 var signatureBuilder = new SignatureBuilder();
                 using (var fileStream = File.OpenRead(filePath))
                 {
-                    signatureBuilder.Build(fileStream, new SignatureWriter(signatureStream));
+                    await Task.Run(() =>signatureBuilder.Build(fileStream, new SignatureWriter(signatureStream)));
                 }
 
                 response.Files.Add(new FileSignature
@@ -33,7 +33,7 @@ namespace gRPC_ModManager.Server.Services
             return response;
         }
 
-        public async Task<DirectoryDeltaResponse> GetDirectoryDeltaAsync(DirectoryDeltaRequest request, ServerCallContext context)
+        public async Task<DirectoryDeltaResponse> GetDirectoryDeltaAsync(DirectoryDeltaRequest request)
         {
             var response = new DirectoryDeltaResponse();
 
@@ -49,7 +49,7 @@ namespace gRPC_ModManager.Server.Services
 
                     using (var basisStream = File.OpenRead(serverFilePath))
                     {
-                        deltaBuilder.BuildDelta(basisStream, new SignatureReader(clientSignatureStream, new ConsoleProgressReporter()), new BinaryDeltaWriter(deltaStream));
+                       await Task.Run(() =>deltaBuilder.BuildDelta(basisStream, new SignatureReader(clientSignatureStream, new ConsoleProgressReporter()), new BinaryDeltaWriter(deltaStream)));
                     }
 
                     response.Deltas.Add(new FileDelta

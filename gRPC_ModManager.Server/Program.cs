@@ -5,7 +5,7 @@ using ProtoBuf.Grpc.Server;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddGrpc();
+builder.Services.AddGrpc(opt => { opt.EnableDetailedErrors = true; });
 builder.Services.AddCodeFirstGrpc();
 builder.Services.AddSingleton<IDirectorySyncService, DirectorySyncService>();
 

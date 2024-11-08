@@ -43,6 +43,7 @@ partial class frmMain
         btnStart.TabIndex = 0;
         btnStart.Text = "Start";
         btnStart.UseVisualStyleBackColor = true;
+        btnStart.Click += btnStart_Click;
         // 
         // txtPath
         // 
